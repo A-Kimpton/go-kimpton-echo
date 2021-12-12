@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package echoservice;
+
+option go_package = "./;echoservice";
+
+// this is returned by "Ping"
+message PingResponse {
+  // this is a string which the echoserver fills in
+  string Response = 1;
+}
+
+// this is sent to the server. All fields must have a unique number
+message PingRequest {
+  // this is a number which the client fills in
+  uint64 Number=1;
+  // this is a string which the client fills in
+  string Message=2;
+}
+
+// this service is for testing stuff
+service EchoService {
+  // the simplest of all RPCs. just print out the message and return an error or "OK"
+  rpc Ping(PingRequest) returns (PingResponse);
+}
