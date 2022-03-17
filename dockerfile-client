@@ -16,4 +16,4 @@ RUN chmod +x /es-client/client-bin
 RUN echo $(ls -l /es-client/)
 
 # Run the app
-CMD ["/es-client/client-bin", "-endpoint='some.dns.name'", "-port=9000", "-repeat"]
+CMD ["/es-client/client-bin", "-endpoint=kimpton-echoserver", "-port=9000", "-repeat"]

@@ -11,10 +11,10 @@ sudo docker build -t kimpton/go-echoserver .
 sudo docker build -f dockerfile-client -t kimpton/go-echoclient .
 
 # Push container to dockerhub for server
-#sudo docker push kimpton/go-echoserver:latest
+sudo docker push kimpton/go-echoserver:latest
 
 # Push container to dockerhub for client
-#sudo docker push kimpton/go-echoclient:latest
+sudo docker push kimpton/go-echoclient:latest
 
 # Run the server container
 sudo docker run -p 3333:9000 kimpton/go-echoclient

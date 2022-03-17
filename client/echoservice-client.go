@@ -37,9 +37,16 @@ func main() {
 		Message: "Hello From Client",
 	}
 
-	resp, err := echoClient.Ping(ctx, pingRequest)
-	if err != nil {
+	var resp *pb.PingResponse
+	for {
+
+		resp, err = echoClient.Ping(ctx, pingRequest)
+		if err == nil {
+			break
+		}
 		log.Printf("Error on Ping: %s", err)
+		time.Sleep(1 * time.Second)
+
 	}
 
 	log.Printf("Response: %s", resp.Response)
@@ -63,10 +70,17 @@ func DoRepeat(ctx context.Context) {
 			Message: "This is a repeating request",
 		}
 
-		// send request and wait
-		resp, err := echoClient.Ping(ctx, pingRequest)
-		if err != nil {
+		var resp *pb.PingResponse
+		var err error
+		for {
+
+			resp, err = echoClient.Ping(ctx, pingRequest)
+			if err == nil {
+				break
+			}
 			log.Printf("Error on Ping: %s", err)
+			time.Sleep(1 * time.Second)
+
 		}
 
 		// print resp
