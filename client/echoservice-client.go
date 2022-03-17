@@ -11,14 +11,16 @@ import (
 	"google.golang.org/grpc"
 )
 
-var(
+var (
 	conn *grpc.ClientConn
+
+	endpoint = flag.String("endpoint", "", "endpoint to communicate to - blank=localhost")
 )
 
 func main() {
 	flag.Parse()
-	
-	conn, err := grpc.Dial(fmt.Sprintf(":%d", common.Port()), grpc.WithInsecure())
+
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", *endpoint, common.Port()), grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Could not connect: %s", err)
 	}
@@ -27,7 +29,7 @@ func main() {
 	echoClient := pb.NewEchoServiceClient(conn)
 	ctx := context.Background()
 	pingRequest := &pb.PingRequest{
-		Number: 74, 
+		Number:  74,
 		Message: "Hello From Client",
 	}
 
