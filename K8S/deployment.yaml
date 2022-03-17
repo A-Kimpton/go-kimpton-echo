@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kimpton-echoserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kimpton-echoserver
+  template:
+    metadata:
+      labels:
+        app: kimpton-echoserver
+    spec:
+      containers:
+      - name: kimpton-echoserver-container
+        image: kimpton/go-echoserver
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
