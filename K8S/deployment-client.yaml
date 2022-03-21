@@ -3,19 +3,22 @@ kind: Deployment
 metadata:
   name: kimpton-echoclient
 spec:
-  replicas: 1
+  replicas: 6
   selector:
     matchLabels:
       app: kimpton-echoclient
   template:
     metadata:
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: kimpton-echoclient
     spec:
       containers:
-      - name: kimpton-echoclient-container
-        image: kimpton/go-echoclient:latest
+      - image: kimpton/go-echoclient:latest
+        name: kimpton-echoclient-container
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            cpu: 500m
+            memory: 128Mi
+---

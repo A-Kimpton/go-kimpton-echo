@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kimpton-echoserver
+  name: kimpton-echoweb
 spec:
   replicas: 4
   selector:
     matchLabels:
-      app: kimpton-echoserver
+      app: kimpton-echoweb
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        app: kimpton-echoserver
+        app: kimpton-echoweb
     spec:
       containers:
-      - image: kimpton/go-echoserver
-        name: kimpton-echoserver-container
+      - image: kimpton/go-echoweb
+        name: kimpton-echoweb-container
         ports:
-        - containerPort: 9000
+        - containerPort: 80
         resources:
           limits:
             cpu: 500m
@@ -27,13 +27,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kimpton-echoserver
+  name: kimpton-echoweb
   namespace: prod
 spec:
   ports:
-  - port: 9000
+  - port: 80
     protocol: TCP
-    targetPort: 9000
+    targetPort: 80
   selector:
-    app: kimpton-echoserver
-  type: ClusterIP
+    app: kimpton-echoweb
+  type: LoadBalancer

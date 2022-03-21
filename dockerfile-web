@@ -1,0 +1,19 @@
+# Define base image - maybe alpine is not a good fit
+FROM golang:alpine
+
+# Make a working dir
+RUN mkdir /es-web
+
+# Copy the src to the working dir
+COPY web-bin /es-web/
+
+# Set the working dir
+# WORKDIR /es-client
+
+# Set permission to allow execute
+RUN chmod +x /es-web/web-bin
+
+RUN echo $(ls -l /es-web/)
+
+# Run the app
+CMD ["/es-web/web-bin", "-port=80"]

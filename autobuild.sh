@@ -24,6 +24,12 @@ echo "Building the server binary $service-server"
 cd $rootdir && cd server && go install $service-server.go
 echo "Server complete!"
 
+# Build the web binary
+echo
+echo "Building the server binary $service-webserver"
+cd $rootdir && cd web && go install $service-webserver.go
+echo "Server complete!"
+
 # Print finished message
 echo 
 echo "finished."
